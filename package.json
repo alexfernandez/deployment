@@ -1,0 +1,28 @@
+{
+	"name": "deployment",
+	"version": "0.0.1",
+	"description": "Continuous deployment for the masses. Download the latest version, run tests and deploy to the specified directory. Can be launched from GitHub webhook or from any other URL. Also includes an API to fire deployment from an external source.",
+	"homepage": "https://github.com/alexfernandez/deployment",
+	"contributors": ["Alex Fernández <alexfernandeznpm@gmail.com>"],
+	"license": "MIT",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/alexfernandez/deployment"
+	},
+	"dependencies": {
+		"async": "*",
+		"log": "*"
+	},
+	"keywords" : ["deployment", "npm", "continuous deployment", "deploy", "test", "continuous delivery"],
+	"engines": {
+		"node": "*"
+	},
+	"bin": {
+		"deployment": "bin/deployment.js"
+	},
+	"scripts": {
+		"test": "node test.js"
+	},
+	"private": false
+  }
