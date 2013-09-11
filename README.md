@@ -54,7 +54,7 @@ You will note that we have not mentioned any restart as part of the deployment p
 By default `deployment' does not deal with service restart, so how does the new code enter into service?
 There are several alternatives.
 
-First, `deployment' can be configured to run a specified command.
+First, `deployment' can be configured to run a specified command, passing it an option `deploymentCommand' from the API.
 
 Second, the service could be run using `supervisor', which would restart the service automatically
 right after downloading the new code.
