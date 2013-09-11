@@ -1,3 +1,6 @@
+
+[![Build Status](https://secure.travis-ci.org/alexfernandez/deployment.png)](http://travis-ci.org/alexfernandez/deployment)
+
 # deployment
 
 Continuous Deployment for the masses.
