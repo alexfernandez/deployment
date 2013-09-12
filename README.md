@@ -6,12 +6,18 @@
 Continuous Deployment for the masses.
 
 Download the latest version of any GitHub package, run all tests and deploy to the specified directory.
-A deployment server can be started to launched deployments from the internet, which enables its use as a GitHub webhook.
-Can be launched from GitHub webhook or from any other URL. Also includes an API to fire deployments from an external source.
+A deployment server can be started to launched deployments from the internet, which enables GitHub integration.
+Also includes an API to fire deployments from an external source.
 
 ## Installation
 
-Download from GitHub:
+Install from npm:
+
+    $ npm install deployments
+
+Or add to your package.json as a dependency.
+
+For manual installation, download from GitHub:
 
     $ git clone https://github.com/alexfernandez/deployment
 
