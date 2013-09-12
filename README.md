@@ -6,7 +6,8 @@
 Continuous Deployment for the masses.
 
 Download the latest version of any GitHub package, run all tests and deploy to the specified directory.
-Can be launched from GitHub webhook or from any other URL. Also includes an API to fire deployment from an external source.
+A deployment server can be started to launched deployments from the internet, which enables its use as a GitHub webhook.
+Can be launched from GitHub webhook or from any other URL. Also includes an API to fire deployments from an external source.
 
 ## Installation
 
@@ -59,7 +60,8 @@ To access from the outside you can
 
     http://localhost:3470/wydjzfoytrg4grmy/deploy
 
-The resulting external URL can be added as a webhook to GitHub, as seen here.
+The resulting external URL can be added as a webhook to GitHub, as seen
+[here](https://help.github.com/articles/post-receive-hooks).
 
 ### API
 
