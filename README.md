@@ -48,26 +48,26 @@ test directory will be `/home/af/projects/test/x'.
 When your server can be reached from the internet,
 you can start a web server that will listen to requests, by default on port 3470.
 
-    $ node lib/server.js --path /wydjzfoytrg4grmy/deploy
+    $ node lib/server.js --token wydjzfoytrg4grmy
 
-Any requests coming in to the special, magic URL will result in a deployment.
-From localhost:
+Any requests coming in with the special, magic token will result in a deployment.
+From localhost use this URL:
 
     http://localhost:3470/wydjzfoytrg4grmy/deploy
 
 You should see an OK message, or "Bad request" if an incorrect URL is sent.
 
-If a path is not passed and therefore the default path is used, a warning will be shown.
-To generate a good, random path just write at your Bash console:
+If a token is not passed and therefore the default token is used, a warning will be shown.
+To generate a good, random token just write at your Bash console:
 
-    $ echo "/$(head -c 16 /dev/random | base64 | tr '[A-Z]' '[a-z]' | head -c 16)/deploy"
+    $ echo "$(head -c 16 /dev/random | base64 | tr '[A-Z]' '[a-z]' | sed 's/\/\+//g' | head -c 16)"
 
 To access from the outside you can 
 
     http://localhost:3470/wydjzfoytrg4grmy/deploy
 
-The resulting external URL can be added as a webhook to GitHub, as seen
-[here](https://help.github.com/articles/post-receive-hooks).
+The resulting external URL can be added as a
+[webhook to GitHub](https://help.github.com/articles/post-receive-hooks).
 
 ### API
 
