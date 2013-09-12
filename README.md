@@ -23,7 +23,11 @@ Et voilà!
 
 ## Usage
 
-Right now `deployment' needs to be run from the command line:
+There are three basic ways to start a deployment.
+
+### Command Line
+
+To start a deployment from the command line:
 
     $ node lib/deployment.js
 
@@ -31,6 +35,35 @@ Will launch a deployment, using the current directory as deployment directory.
 The temp directory will be called like current, but reside in `../test'.
 For instance, if your current directory is `/home/af/projects/x', the default
 test directory will be `/home/af/projects/test/x'.
+
+### Web Server
+
+When your server can be reached from the internet,
+you can start a web server that will listen to requests, by default on port 3470.
+
+    $ node lib/server.js --path /wydjzfoytrg4grmy/deploy
+
+Any requests coming in to the special, magic URL will result in a deployment.
+From localhost:
+
+    http://localhost:3470/wydjzfoytrg4grmy/deploy
+
+You should see an OK message, or "Bad request" if an incorrect URL is sent.
+
+If a path is not passed and therefore the default path is used, a warning will be shown.
+To generate a good, random path just write at your Bash console:
+
+    $ echo "/$(head -c 16 /dev/random | base64 | tr '[A-Z]' '[a-z]' | head -c 16)/deploy"
+
+To access from the outside you can 
+
+    http://localhost:3470/wydjzfoytrg4grmy/deploy
+
+The resulting external URL can be added as a webhook to GitHub, as seen here.
+
+### API
+
+You can also start a deployment using the API.
 
 ## Process
 
