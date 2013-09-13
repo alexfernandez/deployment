@@ -5,9 +5,9 @@
 
 Continuous Deployment for the masses.
 
-Download the latest version of any GitHub package, run all tests and deploy to the specified directory.
-A deployment server can be started to launched deployments from the internet, which enables GitHub integration.
-Also includes an API to fire deployments from an external source.
+Download the latest version of your git package, run all tests and deploy to the specified directory.
+Run a deployment server to launch deployments from the internet, and integrate with GitHub easily.
+Includes an API to fire deployments from an external source.
 
 ## Installation
 

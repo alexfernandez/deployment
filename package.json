@@ -1,7 +1,7 @@
 {
 	"name": "deployment",
 	"version": "0.0.2",
-	"description": "Continuous deployment for the masses. Download the latest version of your GitHub package, run tests and deploy to the specified directory. Can be launched from GitHub webhook or from any other URL. Also includes an API to fire deployment from an external source.",
+	"description": "Continuous deployment for the masses. Download the latest version of your GitHub package, run tests and deploy to the specified directory. Run a deployment server to launch deployments from the internet, and integrate with GitHub easily. Includes an API to fire deployment from an external source.",
 	"homepage": "https://github.com/alexfernandez/deployment",
 	"contributors": ["Alex Fernández <alexfernandeznpm@gmail.com>"],
 	"license": "MIT",
