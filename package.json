@@ -12,6 +12,7 @@
 	},
 	"dependencies": {
 		"async": "*",
+		"optimist": "~0.6.0",
 		"log": "*"
 	},
 	"keywords" : ["deployment", "npm", "continuous deployment", "deploy", "test", "continuous delivery"],
@@ -19,7 +20,7 @@
 		"node": "*"
 	},
 	"bin": {
-		"deployment": "bin/deployment.js"
+		"deployment-server": "bin/deployment-server.js"
 	},
 	"scripts": {
 		"test": "node test.js"
