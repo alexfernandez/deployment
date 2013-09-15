@@ -39,9 +39,13 @@ To start a deployment from the command line:
     $ node lib/deployment.js
 
 Will launch a deployment, using the current directory as deployment directory.
-The temp directory will be called like current, but reside in `../test'.
-For instance, if your current directory is `/home/af/projects/x', the default
-test directory will be `/home/af/projects/test/x'.
+The temp directory will be called like current, but reside in `../test`.
+For instance, if your current directory is `/home/af/projects/x`, the default
+test directory will be `/home/af/projects/test/x`.
+
+Options are:
+
+* --quiet: do not show log messages.
 
 ### Web Server
 
@@ -107,12 +111,12 @@ As console commands, the sequence would be:
 ### Service Restart
 
 You will note that we have not mentioned any restart as part of the deployment process.
-By default `deployment' does not deal with service restart, so how does the new code enter into service?
+By default `deployment` does not deal with service restart, so how does the new code enter into service?
 There are several alternatives.
 
-First, `deployment' can be configured to run a specified command, passing it an option `deploymentCommand' from the API.
+First, `deployment` can be configured to run a specified command, passing it an option `deploymentCommand` from the API.
 
-Second, the service could be run using `supervisor', which would restart the service automatically
+Second, the service could be run using `supervisor`, which would restart the service automatically
 right after downloading the new code.
 
 Another option is to run your services in cluster mode, rebooting each worker after a specified time.
