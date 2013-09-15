@@ -118,7 +118,7 @@ The following options are available:
 * directory: the directory where the package currently resides.
 * testDirectory: the directory where the test version of the package resides.
 * deploymentCommand: a command to run after a successful deployment.
-* quiet: suppress some log messages.
+* quiet: suppress most log messages.
 
 An optional callback `function(error, result)` is called after the deployment
 finishes, either with an error or (if successful) with a result string.
