@@ -52,7 +52,7 @@ Options are:
 When your server can be reached from the internet,
 you can start a web server that will listen to requests, by default on port 3470.
 
-    $ node bin/deployment-server.js --token wydjzfoytrg4grmy
+    $ node bin/server.js --token wydjzfoytrg4grmy
 
 Any requests coming in with the special, magic token will result in a deployment.
 From localhost use this URL:

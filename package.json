@@ -20,7 +20,7 @@
 		"node": "*"
 	},
 	"bin": {
-		"deployment-server": "bin/deployment-server.js"
+		"deployment-server": "bin/server.js"
 	},
 	"scripts": {
 		"test": "node test.js"
