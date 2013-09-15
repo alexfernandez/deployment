@@ -99,11 +99,33 @@ Options are the same as for deployment, plus:
 
 ### API
 
-You can also start a deployment using the API.
+You can also start a deployment using the API:
+
+    var deployment = require('deployment');
+    var options = {};
+    deployment.deploy(options, function(error, result)
+    {
+      if (error)
+      {
+        log.error('Error: %s', error);
+        return;
+      }
+      log.info('Success: %s', result);
+    });
+
+The following options are available:
+
+* directory: the directory where the package currently resides.
+* testDirectory: the directory where the test version of the package resides.
+* deploymentCommand: a command to run after a successful deployment.
+* quiet: suppress some log messages.
+
+An optional callback `function(error, result)` is called after the deployment
+finishes, either with an error or (if successful) with a result string.
 
 ## Process
 
-The process is standardized as follows:
+The deployment process is standardized as follows:
 * update code in test directory,
 * update node modules in test directory,
 * run package tests in test directory,
