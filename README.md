@@ -16,7 +16,7 @@ Install from npm:
     $ npm install deployment
 
 Or add to your package.json as a dependency. For easier access to commands,
-install globally:
+install the package globally:
 
     $ npm install -g deployment
 
@@ -41,7 +41,7 @@ To start a deployment from the command line:
 
     $ node bin/deployment.js
 
-Or, if you installed the package globally, just use the command:
+If you installed the package globally you can just use the command:
 
     $ deployment
 
@@ -70,9 +70,9 @@ you can start a web server that will listen to requests, by default on port 3470
 
     $ node bin/server.js --token wydjzfoytrg4grmy
 
-Or, if you installed the package globally, just use the command:
+Again, if you installed the package globally you can just use the command:
 
-    $ deployment-server
+    $ serve-deployment
 
 Any requests coming in with the special, magic token will result in a deployment.
 From localhost use this URL:
