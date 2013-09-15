@@ -13,9 +13,12 @@ Includes an API to fire deployments from an external source.
 
 Install from npm:
 
-    $ npm install deployments
+    $ npm install deployment
 
-Or add to your package.json as a dependency.
+Or add to your package.json as a dependency. For easier access to commands,
+install globally:
+
+    $ npm install -g deployment
 
 For manual installation, download from GitHub:
 
@@ -38,6 +41,10 @@ To start a deployment from the command line:
 
     $ node bin/deployment.js
 
+Or, if you installed the package globally, just use the command:
+
+    $ deployment
+
 Will launch a deployment, using the current directory as deployment directory.
 The temp directory will be called like current, but reside in `../test`.
 For instance, if your current directory is `/home/af/projects/x`, the default
@@ -47,12 +54,25 @@ Options are:
 
 * --quiet: do not show log messages.
 
+* --dir [path]: deploy to the given directory. This directory must already have
+  a copy of the git repository being deployed.
+
+* --testdir [path]: use the given directory as test environment. This directory
+  must already have a copy of the git repository being deployed.
+
+* --exec [command]: run the given command after deployment, to restart the
+  service.
+
 ### Web Server
 
 When your server can be reached from the internet,
 you can start a web server that will listen to requests, by default on port 3470.
 
     $ node bin/server.js --token wydjzfoytrg4grmy
+
+Or, if you installed the package globally, just use the command:
+
+    $ deployment-server
 
 Any requests coming in with the special, magic token will result in a deployment.
 From localhost use this URL:
@@ -73,20 +93,9 @@ To access from the outside you can
 The resulting external URL can be added as a
 [webhook to GitHub](https://help.github.com/articles/post-receive-hooks).
 
-Options are:
+Options are the same as for deployment, plus:
 
 * --token [token]: use the given token to secure the access URL.
-
-* --dir [path]: deploy to the given directory. This directory must already have
-  a copy of the git repository being deployed.
-
-* --testdir [path]: use the given directory as test environment. This directory
-  must already have a copy of the git repository being deployed.
-
-* --exec [command]: run the given command after deployment, to restart the
-  service.
-
-* --quiet: do not show log messages.
 
 ### API
 
