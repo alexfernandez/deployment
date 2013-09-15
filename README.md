@@ -69,6 +69,21 @@ To access from the outside you can
 The resulting external URL can be added as a
 [webhook to GitHub](https://help.github.com/articles/post-receive-hooks).
 
+Options are:
+
+* --token [token]: use the given token to secure the access URL.
+
+* --dir [path]: deploy to the given directory. This directory must already have
+  a copy of the git repository being deployed.
+
+* --testdir [path]: use the given directory as test environment. This directory
+  must already have a copy of the git repository being deployed.
+
+* --exec [command]: run the given command after deployment, to restart the
+  service.
+
+* --quiet: do not show log messages.
+
 ### API
 
 You can also start a deployment using the API.

@@ -46,6 +46,7 @@ function help()
 	console.log('    --dir [path]      Directory where the package resides');
 	console.log('    --testdir [path]  Directory with a test environment');
 	console.log('    --exec [command]  Command to run after success');
+	console.log('    --quiet           Do not show log messages');
 	process.exit(0);
 }
 
