@@ -36,7 +36,7 @@ There are three basic ways to start a deployment.
 
 To start a deployment from the command line:
 
-    $ node lib/deployment.js
+    $ node bin/deployment.js
 
 Will launch a deployment, using the current directory as deployment directory.
 The temp directory will be called like current, but reside in `../test`.
