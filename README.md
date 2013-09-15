@@ -29,7 +29,7 @@ Install node modules:
     $ cd deployment
     $ npm install
 
-Et voilà!
+And you are done!
 
 ## Usage
 
@@ -50,7 +50,9 @@ The temp directory will be called like current, but reside in `../test`.
 For instance, if your current directory is `/home/af/projects/x`, the default
 test directory will be `/home/af/projects/test/x`.
 
-Options are:
+#### Options
+
+Command line options are:
 
 * --quiet: do not show log messages.
 
@@ -65,8 +67,8 @@ Options are:
 
 ### Web Server
 
-When your server can be reached from the internet,
-you can start a web server that will listen to requests, by default on port 3470.
+You can start a web server that will listen to deployment requests,
+by default on port 3470:
 
     $ node bin/server.js --token wydjzfoytrg4grmy
 
@@ -81,21 +83,60 @@ From localhost use this URL:
 
 You should see an OK message, or "Bad request" if an incorrect URL is sent.
 
-If a token is not passed and therefore the default token is used, a warning will be shown.
-To generate a good, random token just write at your Bash console:
-
-    $ echo "$(head -c 16 /dev/random | base64 | tr '[A-Z]' '[a-z]' | sed 's/\/\+//g' | head -c 16)"
-
-To access from the outside you can 
-
-    http://localhost:3470/wydjzfoytrg4grmy/deploy
-
-The resulting external URL can be added as a
-[webhook to GitHub](https://help.github.com/articles/post-receive-hooks).
+#### Options
 
 Options are the same as for deployment, plus:
 
 * --token [token]: use the given token to secure the access URL.
+
+If a token is not passed the default token is used, and a warning will be shown.
+To generate a good, random token just write at your Bash console:
+
+    $ echo "$(head -c 16 /dev/random | base64 | tr '[A-Z]' '[a-z]' | sed 's/\/\+//g' | head -c 16)"
+
+Why go through all this trouble? If you use a predictable URL third parties might
+start deployments on your server, which may not be what you want.
+
+#### External Access
+
+You can access your deployment server from within your local network,
+replacing localhost with your local IP address, e.g.:
+
+    http://192.168.1.5:3470/wydjzfoytrg4grmy/deploy
+
+When your server can be reached from the internet you can its your domain name:
+
+    http://myserver.test.com:3470/wydjzfoytrg4grmy/deploy
+
+The resulting external URL can be added as a
+[webhook to GitHub](https://help.github.com/articles/post-receive-hooks)
+to run an automated deployment every time new code is pushed to the server.
+
+Make sure that the chosen port (3470 by default) is accessible from the outside.
+You can also use nginx or a similar webserver to proxy connections from port 80
+to your chosen port. With nginx you would include something like this
+in your nginx.conf (replace with your actual token):
+
+    location /wydjzfoytrg4grmy {
+        proxy_read_timeout 200s;
+        proxy_connect_timeout 2s;
+        proxy_pass http://127.0.0.1:3470;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+So you can now use the default HTTP port 80:
+
+    http://myserver.test.com/wydjzfoytrg4grmy/deploy
+
+#### Manual Deployment
+
+A manual deployment can be started using the same URL as before,
+but ending in 'manual':
+
+    http://localhost:3470/wydjzfoytrg4grmy/manual
+
+In this case you will see the output of all deployment phases, and the result.
 
 ### API
 
