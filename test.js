@@ -7,22 +7,30 @@
 
 // requires
 var Log = require('log');
+var testing = require('testing');
 
 // globals
 var log = new Log('info');
 
 
 /**
- * Run fake module tests.
+ * Run module tests.
  */
-exports.test = function()
+exports.test = function(callback)
 {
-	log.notice('Success! in fake tests');
+	var tests = {};
+	var modules = ['deployment.js'];
+	modules.forEach(function(name)
+	{
+		var filename = './lib/' + name;
+		tests[name] = require(filename).test;
+	});
+	testing.run(tests, 10000, callback);
 }
 
 // run tests if invoked directly
 if (__filename == process.argv[1])
 {
-	exports.test();
+	exports.test(testing.show);
 }
 

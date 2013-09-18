@@ -12,6 +12,7 @@
 	},
 	"dependencies": {
 		"async": "*",
+		"testing": "*",
 		"optimist": "~0.6.0",
 		"log": "*"
 	},
