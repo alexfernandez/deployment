@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Run fake package tests.
+ * Run complete package tests.
  * (C) 2013 Alex Fernández.
  */
 
