@@ -18,6 +18,7 @@ var log = new Log('info');
  */
 exports.test = function(callback)
 {
+	log.debug('Running tests');
 	var tests = {};
 	var modules = ['deployment.js', 'prototypes.js', 'server.js'];
 	modules.forEach(function(name)
@@ -26,7 +27,7 @@ exports.test = function(callback)
 		tests[name] = require(filename).test;
 	});
 	testing.run(tests, 10000, callback);
-}
+};
 
 // run tests if invoked directly
 if (__filename == process.argv[1])
