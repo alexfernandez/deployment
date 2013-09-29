@@ -93,7 +93,7 @@ A token can also be given:
 Any requests coming in with the special, magic token will result in a deployment.
 From localhost use this URL:
 
-    http://localhost:3470/wydjzfoytrg4grmy/deploy
+    http://localhost:3470/deploy/wydjzfoytrg4grmy
 
 You should see an OK message, or "Bad request" if an incorrect URL is sent.
 
@@ -125,11 +125,11 @@ start deployments on your server, which may not be what you want.
 You can access your deployment server from within your local network,
 replacing localhost with your local IP address, e.g.:
 
-    http://192.168.1.5:3470/wydjzfoytrg4grmy/deploy
+    http://192.168.1.5:3470/deploy/wydjzfoytrg4grmy
 
 When your server can be reached from the internet you can its your domain name:
 
-    http://myserver.test.com:3470/wydjzfoytrg4grmy/deploy
+    http://myserver.test.com:3470/deploy/wydjzfoytrg4grmy
 
 The resulting external URL can be added as a
 [webhook to GitHub](https://help.github.com/articles/post-receive-hooks)
@@ -140,7 +140,7 @@ You can also use nginx or a similar webserver to proxy connections from port 80
 to your chosen port. With nginx you would include something like this
 in your nginx.conf (replace with your actual token):
 
-    location /wydjzfoytrg4grmy {
+    location /deploy {
         proxy_read_timeout 200s;
         proxy_connect_timeout 2s;
         proxy_pass http://127.0.0.1:3470;
@@ -150,7 +150,7 @@ in your nginx.conf (replace with your actual token):
 
 So you can now use the default HTTP port 80:
 
-    http://myserver.test.com/wydjzfoytrg4grmy/deploy
+    http://myserver.test.com/deploy/wydjzfoytrg4grmy
 
 #### Manual Deployment
 
