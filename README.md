@@ -41,14 +41,22 @@ To start a deployment from the command line:
 
     $ node bin/deployment.js
 
-If you installed the package globally you can just use the command:
+If you installed the package globally you can just use the command `deployment`:
 
     $ deployment
 
 Will launch a deployment, using the current directory as deployment directory.
-The temp directory will be called like current, but reside in `../test`.
-For instance, if your current directory is `/home/af/projects/x`, the default
-test directory will be `/home/af/projects/test/x`.
+If no test directory is given, the deployment will just download the latest code
+and put it in production.
+
+When a test directory is given:
+
+    $ node bin/deployment --testdir "../test/package/"
+
+then package tests will be run first, and only if they succeed will the deployment
+proceed. A deployment directory can also be given:
+
+    $ node bin/deployment --dir "package/"
 
 #### Options
 
@@ -56,11 +64,11 @@ Command line options are:
 
 * --quiet: do not show log messages.
 
-* --dir [path]: deploy to the given directory. This directory must already have
-  a copy of the git repository being deployed.
+* --dir [path]: deploy to the given directory, defaults to the current directory.
+  This directory must already have a copy of the git repository being deployed.
 
-* --testdir [path]: use the given directory as test environment. This directory
-  must already have a copy of the git repository being deployed.
+* --testdir [path]: use the given directory as test environment, no default.
+  This directory must already have a copy of the git repository being deployed.
 
 * --exec [command]: run the given command after deployment, to restart the
   service.
@@ -70,11 +78,17 @@ Command line options are:
 You can start a web server that will listen to deployment requests,
 by default on port 3470:
 
-    $ node bin/server.js --token wydjzfoytrg4grmy
+    $ node bin/server.js --dir .
 
-Again, if you installed the package globally you can just use the command:
+Again, if you installed the package globally you can just use the command
+`serve-deployment`:
 
-    $ serve-deployment
+    $ serve-deployment --dir .
+
+At the very least a deployment directory must be given with `--dir`.
+A token can also be given:
+
+    $ node bin/server.js --dir . --token wydjzfoytrg4grmy
 
 Any requests coming in with the special, magic token will result in a deployment.
 From localhost use this URL:
@@ -85,7 +99,14 @@ You should see an OK message, or "Bad request" if an incorrect URL is sent.
 
 #### Options
 
-Options are the same as for deployment, plus:
+Options are the same as for deployment, with a little change and an addition:
+
+* --dir [path]: deploy to the given directory, _no defaults_.
+  This directory must already have a copy of the git repository being deployed.
+
+In the case of the server a deployment directory needs to be explicitly given,
+or no production deployment will be done. This will be explained later,
+in the section about distributed deployments.
 
 * --token [token]: use the given token to secure the access URL.
 
