@@ -19,7 +19,7 @@ if(args._.length > 0)
 {
     help();
 }
-args.directory = args.dir;
+args.directory = args.dir || process.cwd();
 args.testDirectory = args.testdir;
 args.deploymentCommand = args.exec;
 deployment.run(args);
@@ -37,4 +37,5 @@ function help()
 	console.log('    --exec [command]  Command to run after success');
 	process.exit(0);
 }
+
 
