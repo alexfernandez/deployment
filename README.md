@@ -105,8 +105,10 @@ Options are the same as for deployment, with a little change and an addition:
   This directory must already have a copy of the git repository being deployed.
 
 In the case of the server a deployment directory needs to be explicitly given,
-or no production deployment will be done. This will be explained later,
-in the section about distributed deployments.
+or no production deployment will be done. A test deployment may still be done.
+This will be explained later, in the section about distributed deployments.
+If no test directory and no deployment directory are given,
+the server will complain at startup.
 
 * --token [token]: use the given token to secure the access URL.
 
