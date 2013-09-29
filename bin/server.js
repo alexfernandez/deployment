@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict';
 
 /**
  * Binary to run deployment server.
@@ -18,7 +19,7 @@ if(args._.length > 0)
 {
     if(!isNaN(args._[0]))
 	{
-        args.port = parseInt(args._[0]);
+        args.port = parseInt(args._[0], 10);
     }
 	else
 	{
@@ -45,5 +46,4 @@ function help()
 	console.log('    --quiet           Do not show log messages');
 	process.exit(0);
 }
-
 

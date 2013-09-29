@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict';
 
 /**
  * Binary to run a deployment.
@@ -36,5 +37,4 @@ function help()
 	console.log('    --exec [command]  Command to run after success');
 	process.exit(0);
 }
-
 
