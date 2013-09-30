@@ -209,6 +209,7 @@ By default `deployment` does not deal with service restart, so how does the new 
 There are several alternatives.
 
 First, `deployment` can be configured to run a specified command, passing it an option `deploymentCommand` from the API.
+You can restart an Upstart task, reboot an init.d service or run any other command you need.
 
 Second, the service could be run using `supervisor`, which would restart the service automatically
 right after downloading the new code.
@@ -216,12 +217,19 @@ right after downloading the new code.
 Another option is to run your services in cluster mode, rebooting each worker after a specified time.
 This scheme does not mesh well with database schema updates, or any other irreversible changes.
 
-## Common 
+## Common Scenarios
 
-## Distributed Deployments
+## Simple Deployment
+
+## Run Tests and Deploy
+
+## Distributed Deployment
 
 ### Generating a Token
 
 To generate a good, random token just write at your Bash console:
 
     $ echo "$(head -c 16 /dev/random | base64 | tr '[A-Z]' '[a-z]' | sed 's/\/\+//g' | head -c 16)"
+
+There is a sample Bash command in samples/generate-token.sh.
+
