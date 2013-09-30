@@ -260,7 +260,7 @@ to run an automated deployment every time new code is pushed to the server.
 Make sure that the chosen port (3470 by default) is accessible from the outside.
 You can also use nginx or a similar webserver to proxy connections from port 80
 to your chosen port. With nginx you would include something like this
-in your nginx.conf (replace with your actual token):
+in your nginx.conf:
 
     location /deploy {
         proxy_read_timeout 200s;
@@ -270,6 +270,7 @@ in your nginx.conf (replace with your actual token):
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 
+You have this configuration in samples/nginx-redirection.conf
 So you can now use the default HTTP port 80:
 
     http://myserver.test.com/deploy/wydjzfoytrg4grmy
