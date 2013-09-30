@@ -7,6 +7,8 @@ Continuous Deployment for the masses.
 
 Download the latest version of your git package, run all tests and deploy to the specified directory.
 Run a deployment server to launch deployments from the internet, and integrate with GitHub easily.
+Send email notifications for every deployment, successful or failed.
+
 Includes an API to fire deployments from an external source.
 
 ## Installation
@@ -136,38 +138,6 @@ Example:
 
 to send email using a Gmail account.
 
-#### External Access
-
-You can access your deployment server from within your local network,
-replacing localhost with your local IP address, e.g.:
-
-    http://192.168.1.5:3470/deploy/wydjzfoytrg4grmy
-
-When your server can be reached from the internet you can its your domain name:
-
-    http://myserver.test.com:3470/deploy/wydjzfoytrg4grmy
-
-The resulting external URL can be added as a
-[webhook to GitHub](https://help.github.com/articles/post-receive-hooks)
-to run an automated deployment every time new code is pushed to the server.
-
-Make sure that the chosen port (3470 by default) is accessible from the outside.
-You can also use nginx or a similar webserver to proxy connections from port 80
-to your chosen port. With nginx you would include something like this
-in your nginx.conf (replace with your actual token):
-
-    location /deploy {
-        proxy_read_timeout 200s;
-        proxy_connect_timeout 2s;
-        proxy_pass http://127.0.0.1:3470;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-
-So you can now use the default HTTP port 80:
-
-    http://myserver.test.com/deploy/wydjzfoytrg4grmy
-
 #### Manual Deployment
 
 A manual deployment can be started using the same URL as before,
@@ -241,19 +211,74 @@ right after downloading the new code.
 Another option is to run your services in cluster mode, rebooting each worker after a specified time.
 This scheme does not mesh well with database schema updates, or any other irreversible changes.
 
-## Common Scenarios
+## Tutorials
 
-## Simple Deployment
+Now we will review three basic scenarios where the deployment package can help you:
+simple deployment from GitHub, deployment with tests, and distributed deployments.
+We will see a detailed, step-by-step tutorial for each scenario.
 
-## Run Tests and Deploy
+### Simple Deployment Tutorial
 
-## Distributed Deployment
+You just have a single server where you want to deploy your latest version after each push
+to a GitHub repository. You just need to start the deployment server in the directory where the
+deployment is going to happen:
 
-### Generating a Token
+    $ cd [deployment dir]
+    $ serve-deployment --dir . --token vurrbab8rj780faz
 
-To generate a good, random token just write at your Bash console:
+You need to supply a fixed token so that the resulting URL can be used as a GitHub webhook.
+Your endpoint will now be http://localhost:3470/deploy/vurrbab8rj780faz.
+
+#### Generating a Token
+
+To generate a random token just run the deployment server without one:
+
+    $ serve-deployment --dir .
+    [...] INFO Creating random token: 21wlpjt6ay2liapp
+
+This token should be sufficiently random. You can also just write at your Bash console:
 
     $ echo "$(head -c 16 /dev/random | base64 | tr '[A-Z]' '[a-z]' | sed 's/\/\+//g' | head -c 16)"
 
-There is a sample Bash command in samples/generate-token.sh.
+There is a sample Bash command in samples/generate-token.sh, for your convenience.
+
+#### External Access
+
+You can access your deployment server from within your local network,
+replacing `localhost` with your local IP address, e.g.:
+
+    http://192.168.1.5:3470/deploy/wydjzfoytrg4grmy
+
+When your server can be reached from the internet you can its your domain name:
+
+    http://myserver.test.com:3470/deploy/wydjzfoytrg4grmy
+
+The resulting external URL can be added as a
+[webhook to GitHub](https://help.github.com/articles/post-receive-hooks)
+to run an automated deployment every time new code is pushed to the server.
+
+Make sure that the chosen port (3470 by default) is accessible from the outside.
+You can also use nginx or a similar webserver to proxy connections from port 80
+to your chosen port. With nginx you would include something like this
+in your nginx.conf (replace with your actual token):
+
+    location /deploy {
+        proxy_read_timeout 200s;
+        proxy_connect_timeout 2s;
+        proxy_pass http://127.0.0.1:3470;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+So you can now use the default HTTP port 80:
+
+    http://myserver.test.com/deploy/wydjzfoytrg4grmy
+
+### Deployment with Tests Tutorial
+
+Coming soon.
+
+### Distributed Deployment Tutorial
+
+Coming soon.
 
