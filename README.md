@@ -100,7 +100,7 @@ You should see an OK message, or "Bad request" if an incorrect URL is sent.
 
 #### Options
 
-Options are the same as for deployment, with a little change and an addition:
+Options are the same as for deployment, with a little change and a few additions:
 
 * --dir [path]: deploy to the given directory, _no defaults_.
   This directory must already have a copy of the git repository being deployed.
@@ -118,6 +118,23 @@ If no token is passed then a random token will be generated and shown on startup
 Why use a random URL for deployments?
 If you use a predictable URL any third parties might guess it
 and launch deployments on your server, which may not be what you want.
+
+* --user [user]:     User for email server');
+* --password [pwd]:  Password for email server');
+* --host [host]:     Host for email server');
+* --ssl [boolean]:   "true" to enable SSL');
+* --from [email]:    Email address that generates the message');
+* --to [email]:      Destination for deployment message');
+
+The deployment server can send emails each time a deployment is run.
+These parameters contain the whole configuration to access an SMTP server.
+Example:
+
+    --from alexfernandeznpm@gmail.com --to alexfernandeznpm@gmail.com
+      --user alexfernandeznpm@gmail.com --password [REDACTED]
+      --host smtp.gmail.com --ssl true
+
+to send email using a Gmail account.
 
 #### External Access
 
