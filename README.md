@@ -180,54 +180,31 @@ The following options are available:
 An optional callback `function(error, result)` is called after the deployment
 finishes, either with an error or (if successful) with a result string.
 
-## Process
-
-The deployment process is standardized as follows:
-* update code in test directory,
-* update node modules in test directory,
-* run package tests in test directory,
-* update code in deployment directory,
-* update node modules in test directory.
-
-As console commands, the sequence would be:
-    $ git pull /home/af/projects/test/x
-    $ npm install /home/af/projects/test/x
-    $ npm test /home/af/projects/test/x
-    $ git pull /home/af/projects/x
-    $ npm install /home/af/projects/x
-
-### Service Restart
-
-You will note that we have not mentioned any restart as part of the deployment process.
-By default the deployment package does not deal with service restart, so how does the new code enter into service?
-There are several alternatives.
-
-First, the deployment package can be configured to run a specified command, passing it an option `deploymentCommand` from the API.
-You can restart an Upstart task, reboot an init.d service or run any other command you need.
-
-Second, the service could be run using `supervisor`, which would restart the service automatically
-right after downloading the new code.
-
-Another option is to run your services in cluster mode, rebooting each worker after a specified time.
-This scheme does not mesh well with database schema updates, or any other irreversible changes.
-
 ## Tutorials
 
 Now we will review three basic scenarios where the deployment package can help you:
 simple deployment from GitHub, deployment with tests, and distributed deployments.
 We will see a detailed, step-by-step tutorial for each scenario.
 
-### Simple Deployment Tutorial
+### Tutorial: Simple Deployment
 
-You just have a single server where you want to deploy your latest version after each push
+You have a single server where you just want to deploy your latest version after each push
 to a GitHub repository. You just need to start the deployment server in the directory where the
-deployment is going to happen:
+deployment is going to happen, say `/home/ubuntu/production`:
 
-    $ cd [deployment dir]
+    $ cd /home/ubuntu/production
     $ deployment-server --dir . --token vurrbab8rj780faz
 
 You need to supply a fixed token so that the resulting URL can be used as a GitHub webhook.
 Your endpoint will now be http://localhost:3470/deploy/vurrbab8rj780faz.
+
+The deployment process will be as follows:
+* update code in deployment directory,
+* update node modules in deployment directory.
+
+As console commands, the sequence would be:
+    $ git pull /home/ubuntu/production
+    $ npm install /home/ubuntu/production
 
 #### Generating a Token
 
@@ -275,11 +252,56 @@ So you can now use the default HTTP port 80:
 
     http://myserver.test.com/deploy/wydjzfoytrg4grmy
 
-### Deployment with Tests Tutorial
+### Tutorial: Deployment with Tests
 
-Coming soon.
+Now you have grown up, but just a bit: still with a single server, you want to run all package tests
+on a test repository before deploying your latest code.
+Both test and production directories must be specified; as before the production repo lives at
+`/home/ubuntu/production`, and the new test repo at `/home/ubuntu/test`.
+Each directory must contain a full git repository with its proper configuration;
+since we are using just a single machine
+for tests and for production, we should ensure that any resources (e.g. databases)
+are adequately isolated.
 
-### Distributed Deployment Tutorial
+We now start the server as follows:
+
+    $ cd /home/ubuntu/production
+    $ deployment-server --dir . --testdir /home/ubuntu/test --token vurrbab8rj780faz
+
+The server will listen as before at http://localhost:3470/deploy/vurrbab8rj780faz.
+
+#### Process
+
+The deployment process is a bit more convoluted than before:
+* update code in test directory,
+* update node modules in test directory,
+* run package tests in test directory,
+* update code in deployment directory,
+* update node modules in deployment directory.
+
+As console commands, the sequence would be:
+    $ git pull /home/ubuntu/test
+    $ npm install /home/ubuntu/test
+    $ npm test /home/ubuntu/test
+    $ git pull /home/ubuntu/production
+    $ npm install /home/ubuntu/production
+
+### Service Restart
+
+You will note that we have not mentioned any restart as part of the deployment process.
+By default the deployment package does not deal with service restart, so how does the new code enter into service?
+There are several alternatives.
+
+First, the deployment package can be configured to run a specified command, passing it an option `deploymentCommand` from the API.
+You can restart an Upstart task, reboot an init.d service or run any other command you need.
+
+Second, the service could be run using a package like `supervisor`,
+which will restart the service automatically right after downloading the new code.
+
+Another option is to run your services in cluster mode, rebooting each worker after a specified time.
+This last scheme does not mesh well with database schema updates, or any other irreversible changes.
+
+### Tutorial: Distributed Deployment
 
 Coming soon.
 
