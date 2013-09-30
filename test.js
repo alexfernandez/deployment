@@ -20,10 +20,10 @@ exports.test = function(callback)
 {
 	log.debug('Running tests');
 	var tests = {};
-	var modules = ['deployment.js', 'server.js'];
+	var modules = ['deployment', 'server', 'token'];
 	modules.forEach(function(name)
 	{
-		var filename = './lib/' + name;
+		var filename = './lib/' + name + '.js';
 		tests[name] = require(filename).test;
 	});
 	testing.run(tests, 10000, callback);
