@@ -86,10 +86,11 @@ Again, if you installed the package globally you can just use the command
     $ serve-deployment --dir .
 
 At the very least a deployment directory must be given with `--dir`.
-A token can also be given:
+A token can also be specified:
 
     $ node bin/server.js --dir . --token wydjzfoytrg4grmy
 
+Otherwise a random token will be automatically generated.
 Any requests coming in with the special, magic token will result in a deployment.
 From localhost use this URL:
 
@@ -112,13 +113,11 @@ the server will complain at startup.
 
 * --token [token]: use the given token to secure the access URL.
 
-If a token is not passed the default token is used, and a warning will be shown.
-To generate a good, random token just write at your Bash console:
+If no token is passed then a random token will be generated and shown on startup.
 
-    $ echo "$(head -c 16 /dev/random | base64 | tr '[A-Z]' '[a-z]' | sed 's/\/\+//g' | head -c 16)"
-
-Why go through all this trouble? If you use a predictable URL third parties might
-start deployments on your server, which may not be what you want.
+Why use a random URL for deployments?
+If you use a predictable URL any third parties might guess it
+and launch deployments on your server, which may not be what you want.
 
 #### External Access
 
@@ -217,3 +216,12 @@ right after downloading the new code.
 Another option is to run your services in cluster mode, rebooting each worker after a specified time.
 This scheme does not mesh well with database schema updates, or any other irreversible changes.
 
+## Common 
+
+## Distributed Deployments
+
+### Generating a Token
+
+To generate a good, random token just write at your Bash console:
+
+    $ echo "$(head -c 16 /dev/random | base64 | tr '[A-Z]' '[a-z]' | sed 's/\/\+//g' | head -c 16)"
