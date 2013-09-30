@@ -43,9 +43,9 @@ To start a deployment from the command line:
 
     $ node bin/deployment.js
 
-If you installed the package globally you can just use the command `deployment`:
+If you installed the package globally you can just use the command `deployment-run`:
 
-    $ deployment
+    $ deployment-run
 
 Will launch a deployment, using the current directory as deployment directory.
 If no test directory is given, the deployment will just download the latest code
@@ -83,9 +83,9 @@ by default on port 3470:
     $ node bin/server.js --dir .
 
 Again, if you installed the package globally you can just use the command
-`serve-deployment`:
+`deployment-server`:
 
-    $ serve-deployment --dir .
+    $ deployment-server --dir .
 
 At the very least a deployment directory must be given with `--dir`.
 A token can also be specified:
@@ -199,10 +199,10 @@ As console commands, the sequence would be:
 ### Service Restart
 
 You will note that we have not mentioned any restart as part of the deployment process.
-By default `deployment` does not deal with service restart, so how does the new code enter into service?
+By default the deployment package does not deal with service restart, so how does the new code enter into service?
 There are several alternatives.
 
-First, `deployment` can be configured to run a specified command, passing it an option `deploymentCommand` from the API.
+First, the deployment package can be configured to run a specified command, passing it an option `deploymentCommand` from the API.
 You can restart an Upstart task, reboot an init.d service or run any other command you need.
 
 Second, the service could be run using `supervisor`, which would restart the service automatically
@@ -224,7 +224,7 @@ to a GitHub repository. You just need to start the deployment server in the dire
 deployment is going to happen:
 
     $ cd [deployment dir]
-    $ serve-deployment --dir . --token vurrbab8rj780faz
+    $ deployment-server --dir . --token vurrbab8rj780faz
 
 You need to supply a fixed token so that the resulting URL can be used as a GitHub webhook.
 Your endpoint will now be http://localhost:3470/deploy/vurrbab8rj780faz.
@@ -233,7 +233,7 @@ Your endpoint will now be http://localhost:3470/deploy/vurrbab8rj780faz.
 
 To generate a random token just run the deployment server without one:
 
-    $ serve-deployment --dir .
+    $ deployment-server --dir .
     [...] INFO Creating random token: 21wlpjt6ay2liapp
 
 This token should be sufficiently random. You can also just write at your Bash console:
