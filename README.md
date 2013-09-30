@@ -160,6 +160,13 @@ but ending in 'manual':
 
 In this case you will see the output of all deployment phases, and the result.
 
+#### Keeping It Running
+
+Ideally you should start your deployment server when your system starts up.
+
+Ubuntu: in samples/upstart-deployment-server.conf you have a sample Upstart task to start
+your deployment server running and keep it running.
+
 ### API
 
 You can also start a deployment using the API:
