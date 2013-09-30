@@ -20,7 +20,7 @@ exports.test = function(callback)
 {
 	log.debug('Running tests');
 	var tests = {};
-	var modules = ['deployment.js', 'prototypes.js', 'server.js'];
+	var modules = ['deployment.js', 'server.js'];
 	modules.forEach(function(name)
 	{
 		var filename = './lib/' + name;
