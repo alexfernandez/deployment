@@ -72,6 +72,8 @@ Command line options are:
 * --testdir [path]: use the given directory as test environment, no default.
   This directory must already have a copy of the git repository being deployed.
 
+* --name [name]: package name to show in messages, default `unnamed`.
+
 * --exec [command]: run the given command after deployment, to restart the
   service.
 
