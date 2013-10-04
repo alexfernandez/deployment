@@ -154,7 +154,12 @@ In this case you will see the output of all deployment phases, and the result.
 Ideally you should start your deployment server when your system starts up.
 
 Ubuntu: in samples/upstart-deployment-server.conf you have a sample Upstart task to start
-your deployment server running and keep it running.
+your deployment server running and keep it running. The relevant lines are quoted here:
+
+    cd $DEPLOYMENT_DIR
+    exec sudo -u ubuntu "deployment-server --dir . --token ke8mqs3ahdhul3kr
+
+A constant token is used to have a predictable URL to access.
 
 ### API
 
@@ -305,5 +310,95 @@ This last scheme does not mesh well with database schema updates, or any other i
 
 ### Tutorial: Distributed Deployment
 
-Coming soon.
+Our last scenario is the most complex (and realistic) of the set:
+one integration machine and a set of production servers.
+This is a common setup to withstand high loads.
+From a deployment perspective it is also much more flexible than having tests
+run on the production machine: separate databases and resources can be used,
+so it can also be used even with just one production machine.
+
+This scenario is complex so please bear with us.
+For simplicity, we assume one integration server with a git repo for tests,
+located at `/home/ubuntu/integration/`; and one production machine
+with a production git repo at `/home/ubuntu/production`.
+
+Let us start with the production machine, accessible from the network as production.test.com.
+This time we will use an Upstart task to start our production server,
+boringly called `production`: this starts up our web server or whatever.
+The deployment server will be started with another Upstart task,
+equivalent to the following commands:
+
+    $ cd /home/ubuntu/production
+    $ deployment-server --dir . --token vurrbab8rj780faz \
+      --exec "sudo restart production"
+
+Note that the deployment server restarts the production server.
+Note also that we do not specify a test directory, as there is none here!
+The server will listen at http://production.test.com:3470/deploy/vurrbab8rj780faz,
+so we can trigger a deployment from the command line using this command:
+
+    $ wget http://production.test.com:3470/deploy/vurrbab8rj780faz
+
+However this time we will not be accessing this URL directly,
+but from the integration machine integration.test.com.
+And here the daemon is started as follows:
+
+    $ cd /home/ubuntu/integration
+    $ deployment-server --testdir . --token vurrbab8rj780faz \
+      --exec "wget http://production.test.com:3470/deploy/vurrbab8rj780faz"
+
+So we use the same command as before to trigger a deployment on the production machine,
+_only if the tests on the integration server go well_.
+
+This integration server will now be listening at
+http://integration.test.com:3470/deploy/vurrbab8rj780faz,
+which we can use as a GitHub webhook.
+
+#### Process
+
+The deployment process is divided in two parts. On the integration server:
+* update code in test directory,
+* update node modules in test directory,
+* run package tests in test directory,
+* access production machine and start a deployment.
+
+On the production server:
+* update code in deployment directory,
+* update node modules in deployment directory,
+* restart the production web server.
+
+As console commands, the sequence would be:
+
+    integration.test.com $ git pull /home/ubuntu/test
+    integration.test.com $ npm install /home/ubuntu/test
+    integration.test.com $ npm test /home/ubuntu/test
+    integration.test.com $ wget http://production.test.com:3470/deploy/vurrbab8rj780faz
+
+    production.test.com $ git pull /home/ubuntu/production
+    production.test.com $ npm install /home/ubuntu/production
+    production.test.com $ sudo restart production
+
+The process in one server starts the process on the second.
+
+#### Command distribution
+
+It is usual to have multiple servers receiving requests,
+to distribute the load.
+How can we reach them all from the integration server,
+so we can have a coordinated deployment?
+
+A blunt solution would be to change the `--exec` parameter to reach many different URLs:
+
+    $ wget http://production1.test.com:3470/deploy/vurrbab8rj780faz; \
+      wget http://production2.test.com:3470/deploy/vurrbab8rj780faz; \
+      [...]
+
+It is better to create a simple script and add it to your application's repo,
+which will be run after a deployment.
+This script (called e.g. `deploy-all.sh`) may run multiple wget commands.
+
+    $ deployment-server --testdir . --exec "bin/deploy-all.sh"
+
+The number of servers may be variable though. More sophisticated versions of this script
+would first learn how many servers are running, their locations, and access them in turn.
 
