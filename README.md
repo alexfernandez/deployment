@@ -237,10 +237,6 @@ When your server can be reached from the internet you can its your domain name:
 
     http://myserver.test.com:3470/deploy/wydjzfoytrg4grmy
 
-The resulting external URL can be added as a
-[webhook to GitHub](https://help.github.com/articles/post-receive-hooks)
-to run an automated deployment every time new code is pushed to the server.
-
 Make sure that the chosen port (3470 by default) is accessible from the outside.
 You can also use nginx or a similar webserver to proxy connections from port 80
 to your chosen port. With nginx you would include something like this
@@ -258,6 +254,23 @@ You have this configuration in samples/nginx-redirection.conf
 So you can now use the default HTTP port 80:
 
     http://myserver.test.com/deploy/wydjzfoytrg4grmy
+
+The resulting external URL can be added as a
+[webhook to GitHub](https://help.github.com/articles/post-receive-hooks)
+to run an automated deployment every time new code is pushed to the server.
+GitHub requests will always come from the ports shown in
+[this page](https://api.github.com/meta), so it is easy in nginx
+to stop requests that come from other IP addresses.
+Just add these lines to your nginx.conf:
+
+        deny all;
+        allow 192.168.1.0/24;
+        allow 204.232.175.64/27;
+        allow 192.30.252.0/22;
+
+Besides port redirection you can also listen on a subdomain,
+add basic authentication, limit IP addresses and many more things.
+Deployments can be made as safe as desired.
 
 ### Tutorial: Deployment with Tests
 
