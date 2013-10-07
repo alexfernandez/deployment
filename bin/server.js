@@ -36,8 +36,9 @@ if(args._.length > 0)
     }
 	else
 	{
-        help();
-    }
+		console.log('Invalid port %s', args._[0]);
+		help();
+	}
 }
 for (var shortOption in optionMap)
 {
