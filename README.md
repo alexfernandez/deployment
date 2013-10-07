@@ -77,6 +77,9 @@ Command line options are:
 * --exec [command]: run the given command after deployment, to restart the
   service.
 
+* --timeout [seconds]: max time to wait for commands including tests,
+  default 10 seconds.
+
 ### Web Server
 
 You can start a web server that will listen to deployment requests,
