@@ -126,6 +126,8 @@ Why use a random URL for deployments?
 If you use a predictable URL any third parties might guess it
 and launch deployments on your server, which may not be what you want.
 
+The following parameters are used to send email notifications.
+
 * --user [user]:     User for email server');
 * --password [pwd]:  Password for email server');
 * --host [host]:     Host for email server');
@@ -142,6 +144,8 @@ Example:
       --host smtp.gmail.com --ssl true
 
 to send email using a Gmail account.
+The recipient will get a mail with a complete log of the deployment,
+and the outcome in the subject.
 
 #### Manual Deployment
 
