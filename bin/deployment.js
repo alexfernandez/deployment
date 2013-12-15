@@ -36,6 +36,7 @@ function help()
 	console.log('    --testdir [path]  Directory with a test environment');
 	console.log('    --name [name]     Package name to show');
 	console.log('    --exec [command]  Command to run after success');
+	console.log('    --detail          Show log and diff of code to deploy.');
 	process.exit(0);
 }
 

@@ -62,6 +62,7 @@ function help()
 	console.log('    --name [name]     Package name to show in messages');
 	console.log('    --exec [command]  Command to run after success');
 	console.log('    --quiet           Do not show log messages');
+	console.log('    --detail          Show log and diff of code to deploy.');
 	console.log('Email-related options:');
 	console.log('    --user [user]     User for email server');
 	console.log('    --password [pwd]  Password for email server');

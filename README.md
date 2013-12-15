@@ -78,7 +78,9 @@ Command line options are:
   service.
 
 * --timeout [seconds]: max time to wait for commands including tests,
-  default 10 seconds.
+  default 60 seconds.
+
+* --detail: show full detail (log and diff) of code to be deployed.
 
 ### Web Server
 
@@ -190,6 +192,7 @@ The following options are available:
 * testDirectory: the directory where the test version of the package resides.
 * deploymentCommand: a command to run after a successful deployment.
 * quiet: suppress most log messages.
+* detail: show log and diff of code to deploy.
 
 An optional callback `function(error, result)` is called after the deployment
 finishes, either with an error or (if successful) with a result string.
