@@ -1,5 +1,6 @@
-
 [![Build Status](https://secure.travis-ci.org/alexfernandez/deployment.png)](http://travis-ci.org/alexfernandez/deployment)
+
+[![Package quality](http://packagequality.com/badge/deployment.png)](http://packagequality.com/#?package=deployment)
 
 # deployment
 
