@@ -1,6 +1,6 @@
 {
 	"name": "deployment",
-	"version": "0.1.9",
+	"version": "0.2.0",
 	"description": "Continuous deployment for the masses. Download the latest version of your GitHub package, run tests and deploy to the specified directory. Run a deployment server to launch deployments from the internet, and integrate with GitHub easily. Includes an API to fire deployment from an external source.",
 	"homepage": "https://github.com/alexfernandez/deployment",
 	"contributors": ["Alex Fernández <alexfernandeznpm@gmail.com>"],
