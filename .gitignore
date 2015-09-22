@@ -16,4 +16,5 @@ node_modules
 *.swp
 
 local*.sh
+*credentials*
 
