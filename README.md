@@ -75,6 +75,8 @@ Command line options are:
 
 * --name [name]: package name to show in messages, default `unnamed`.
 
+* --noinst: do not run `npm install` when installing.
+
 * --exec [command]: run the given command after deployment, to restart the
   service.
 

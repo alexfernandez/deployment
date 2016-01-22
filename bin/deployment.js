@@ -22,6 +22,7 @@ if(args._.length > 0)
 args.directory = args.dir || process.cwd();
 args.testDirectory = args.testdir;
 args.deploymentCommand = args.exec;
+args.noInstall = args.noinst;
 deployment.run(args);
 
 /**
@@ -35,6 +36,7 @@ function help()
 	console.log('    --dir [path]      Directory to deploy to');
 	console.log('    --testdir [path]  Directory with a test environment');
 	console.log('    --name [name]     Package name to show');
+	console.log('    --noinst          Do not run npm install.');
 	console.log('    --exec [command]  Command to run after success');
 	console.log('    --detail          Show log and diff of code to deploy.');
 	process.exit(0);

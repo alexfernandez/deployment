@@ -15,6 +15,7 @@ var optionMap = {
 	testdir: 'testDirectory',
 	name: 'packageName',
 	exec: 'deploymentCommand',
+	noinst: 'noInstall',
 	user: 'emailUser',
 	password: 'emailPassword',
 	host: 'emailHost',
@@ -60,6 +61,7 @@ function help()
 	console.log('Optional options:');
 	console.log('    --token [token]   Security token for the URL');
 	console.log('    --name [name]     Package name to show in messages');
+	console.log('    --noinst          Do not run npm install.');
 	console.log('    --exec [command]  Command to run after success');
 	console.log('    --quiet           Do not show log messages');
 	console.log('    --detail          Show log and diff of code to deploy.');
